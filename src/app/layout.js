@@ -1,5 +1,13 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
+import Navbar from "@/components/Navbar";
+import { QueryClientProvider, getqueryClient } from "@/lib/getQuerry";
+import Providers from "@/components/Providers";
+import ShoppingCartModal from "@/components/ShoppingCartModal";
+
+
+
+
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -10,8 +18,16 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
+    <html lang="en"suppressHydrationWarning >
+      <body className={inter.className}>
+         <Providers>
+         <QueryClientProvider client={getqueryClient}>
+         <Navbar/>
+         <ShoppingCartModal/>
+         {children}
+        </QueryClientProvider>
+        </Providers>
+        </body>
     </html>
   );
 }
